@@ -9,7 +9,7 @@ import { notFoundErrorHandler, badRequestErrorHandler, catchAllErrorHandler } fr
 
 const server = express()
 
-const port = process.env.PORT
+const port = process.env.PORT 
 
 // ******** MIDDLEWARES ************
 

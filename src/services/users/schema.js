@@ -2,30 +2,49 @@ import mongoose from "mongoose"
 
 const { Schema, model } = mongoose
 
-const UserSchema = new Schema(
+const BlogPostSchema = new Schema(
   {
-    name: {
+    category: {
       type: String,
       required: true,
     },
-    surname: {
+    title: {
       type: String,
       required: true,
     },
-    email: {
+    cover: {
       type: String,
       required: true,
       lowercase: true,
     },
-    age: {
-      type: Number,
-      min: [18, "You are too young!"],
-      max: 65,
-      default: 18,
+    readTime: {
+      value: {
+        type: Number,
+        required: true
+      },
+      unit: {
+        type: String,
+        required: true
+
+      }
     },
-    professions: [String],
+    author: {
+      name:{
+        type: String,
+        required: true
+
+      },
+      avatar: {
+        type: String,
+        required: true
+
+      }
+    },
+    content:{
+      
+    }
   },
   { timestamps: true }
 )
 
-export default model("User", UserSchema)
+export default model("BlogPost", BlogPostSchema)
