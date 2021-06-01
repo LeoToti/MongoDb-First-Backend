@@ -3,7 +3,7 @@ import cors from "cors"
 import listEndpoints from "express-list-endpoints"
 import mongoose from "mongoose"
 
-import usersRouter from "./services/users/index.js"
+import blogPostsRouter from "./services/users/index.js"
 
 import { notFoundErrorHandler, badRequestErrorHandler, catchAllErrorHandler } from "./errorHandlers.js"
 
@@ -18,7 +18,7 @@ server.use(cors())
 
 // ******** ROUTES ************
 
-server.use("/blogPosts", usersRouter)
+server.use("/blogPosts", blogPostsRouter)
 
 // ******** ERROR MIDDLEWARES ************
 

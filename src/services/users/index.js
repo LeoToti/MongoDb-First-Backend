@@ -1,13 +1,13 @@
 import express from "express"
 import createError from "http-errors"
 
-import UserModel from "./schema.js"
+import Model from "./schema.js"
 
 const blogPostsRouter = express.Router()
 
 blogPostsRouter.get("/", async (req, res, next) => {
   try {
-    const users = await UserModel.find()
+    const users = await BlogPostModel.find()
     res.send(users)
   } catch (error) {
     console.log(error)
@@ -18,7 +18,7 @@ blogPostsRouter.get("/", async (req, res, next) => {
 blogPostsRouter.get("/:id", async (req, res, next) => {
   try {
     const id = req.params.id
-    const user = await UserModel.findById(id)
+    const user = await BlogPostModel.findById(id)
     if (user) {
       res.send(user)
     } else {
@@ -32,7 +32,7 @@ blogPostsRouter.get("/:id", async (req, res, next) => {
 
 blogPostsRouter.post("/", async (req, res, next) => {
   try {
-    const newUser = new UserModel(req.body)
+    const newUser = new BlogPostModel(req.body)
     const { _id } = await newUser.save()
 
     res.status(201).send(_id)
@@ -48,7 +48,7 @@ blogPostsRouter.post("/", async (req, res, next) => {
 
 blogPostsRouter.put("/:id", async (req, res, next) => {
   try {
-    const blogPosts = await UserModel.findByIdAndUpdate(req.params.id, req.body, {
+    const blogPosts = await BlogPostModel.findByIdAndUpdate(req.params.id, req.body, {
       runValidators: true,
       new: true,
     })
@@ -65,7 +65,7 @@ blogPostsRouter.put("/:id", async (req, res, next) => {
 
 blogPostsRouter.delete("/:id", async (req, res, next) => {
   try {
-    const blogPosts = await UserModel.findByIdAndDelete(req.params.id)
+    const blogPosts = await BlogPostModel.findByIdAndDelete(req.params.id)
     if (blogPosts) {
       res.status(204).send()
     } else {

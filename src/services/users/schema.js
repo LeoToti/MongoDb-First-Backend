@@ -41,7 +41,9 @@ const BlogPostSchema = new Schema(
       }
     },
     content:{
-      
+      type:String,
+      default: "HTML",
+
     }
   },
   { timestamps: true }
