@@ -1,7 +1,7 @@
 import express from "express"
 import createError from "http-errors"
 
-import Model from "./schema.js"
+import BlogPostModel from "./schema.js"
 
 const blogPostsRouter = express.Router()
 
@@ -18,7 +18,7 @@ blogPostsRouter.get("/", async (req, res, next) => {
 blogPostsRouter.get("/:id", async (req, res, next) => {
   try {
     const id = req.params.id
-    const user = await BlogPostModel.findById(id)
+    const user = await UserModel.findById(id)
     if (user) {
       res.send(user)
     } else {
@@ -48,7 +48,7 @@ blogPostsRouter.post("/", async (req, res, next) => {
 
 blogPostsRouter.put("/:id", async (req, res, next) => {
   try {
-    const blogPosts = await BlogPostModel.findByIdAndUpdate(req.params.id, req.body, {
+    const blogPosts = await UserModel.findByIdAndUpdate(req.params.id, req.body, {
       runValidators: true,
       new: true,
     })
@@ -65,7 +65,7 @@ blogPostsRouter.put("/:id", async (req, res, next) => {
 
 blogPostsRouter.delete("/:id", async (req, res, next) => {
   try {
-    const blogPosts = await BlogPostModel.findByIdAndDelete(req.params.id)
+    const blogPosts = await UserModel.findByIdAndDelete(req.params.id)
     if (blogPosts) {
       res.status(204).send()
     } else {
