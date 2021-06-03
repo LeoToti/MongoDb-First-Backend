@@ -28,18 +28,8 @@ const BlogPostSchema = new Schema(
 
       }
     },
-    author: {
-      name:{
-        type: String,
-        required: true
-
-      },
-      avatar: {
-        type: String,
-        required: true
-
-      }
-    },
+    authors: [{ type: Schema.Types.ObjectId, required: true, ref: "Author" }],
+    
     content:{
       type:String,
       default: "HTML",
@@ -48,5 +38,23 @@ const BlogPostSchema = new Schema(
   },
   { timestamps: true }
 )
+
+BlogPostSchema.static("findPostsWithAuthors", async function (id) {
+  const posts = await this.findOne({ _id: id }).populate("authors")
+  return posts
+})
+
+BlogPostSchema.static("findPostsWithAuthors", async function (query) {
+  const total = await this.countDocuments(query.criteria)
+  const posts = await this.find(query.criteria).skip(query.options.skip).limit(query.options.limit).sort(query.options.sort).populate("authors")
+
+  return { total, posts }
+})
+
+
+
+
+
+
 
 export default model("BlogPost", BlogPostSchema)
